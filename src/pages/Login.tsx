@@ -14,7 +14,6 @@ import { setSession } from "../features/session/sessionSlice";
 import { isValidEmail, isValidPassword } from "../utilities/validate";
 import { apiPost } from "../utilities/ApiRequest";
 import { setSnackbar } from "../features/snackbar/snackbarSlice";
-// extra
 
 import { msg } from "../utilities/gen";
 
