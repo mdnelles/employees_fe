@@ -91,6 +91,7 @@ export default function Login() {
             >
                <TextField
                   margin='normal'
+                  defaultValue={"demo@employ.ees"}
                   required
                   fullWidth
                   id='email'
@@ -107,6 +108,7 @@ export default function Login() {
                   name='password'
                   label='Password'
                   id='password'
+                  defaultValue={"password"}
                   autoComplete='current-password'
                />
                <Box
