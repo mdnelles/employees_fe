@@ -11,14 +11,18 @@ import TableRow from "@mui/material/TableRow";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import Tooltip from "@mui/material/Tooltip";
 import { setSnackbar } from "../../features/snackbar/snackbarSlice";
-import { rand, msg } from "../../utilities/gen";
+import { rand, msg, dia } from "../../utilities/gen";
 import { SessionState } from "../../features/session/session";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 import Loading from "../../components/Loading";
 import { IconButton } from "@mui/material";
 import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import Typography from "@mui/material/Typography";
 import { ManagersArrType, ManagersObj } from "./types";
+import { setManagers } from "../../features/managers/managersSlice";
+import { setDialog } from "../../features/dialog/dialogSlice";
 
 interface Column {
    id:
@@ -26,6 +30,7 @@ interface Column {
       | "to_date"
       | "dept_name"
       | "dept_no"
+      | "emp_no"
       | "first_name"
       | "last_name";
    label: string;
@@ -37,6 +42,7 @@ const columns: readonly Column[] = [
    { id: "to_date", label: "finish", minWidth: 50 },
    { id: "dept_name", label: "dept", minWidth: 50 },
    { id: "dept_no", label: "#", minWidth: 50 },
+   { id: "emp_no", label: "Emp", minWidth: 50 },
    { id: "first_name", label: "First", minWidth: 50 },
    { id: "last_name", label: "Last", minWidth: 50 },
 ];
@@ -67,14 +73,34 @@ export default React.memo((): JSX.Element => {
       setPage(0);
    };
 
-   const handleDetails = (row: ManagersObj, num: string) => {
-      const { dept_no, dept_name } = row;
-      const id = dept_no;
+   const handleEdit = (row: ManagersObj) => {
+      const { first_name, last_name } = row;
 
-      dis(setSnackbar(msg(`Fetching employees in dept (${id})`, "info")));
-      setTimeout(() => {
-         dis(setSnackbar(msg(`Processing Dept ${id}`, "success")));
-      }, session.speed * 1.1 * 1000);
+      dis(setSnackbar(msg(`Edit ${first_name} ${last_name}`, "info")));
+      dis(
+         setDialog(
+            dia(true, `Edit ${first_name} ${last_name}`, "ManEdit", {
+               row,
+               table: "Manager",
+               uid: "emp_no",
+            })
+         )
+      );
+   };
+
+   const handleDelete = (row: ManagersObj) => {
+      if (window.confirm("Are you sure you want to delete this?")) {
+         dis(
+            setManagers({
+               ...managers,
+               arr: managers.filter((e) => e.emp_no !== row.emp_no),
+            })
+         );
+         dis(setSnackbar(msg(`Delete User ${row.emp_no} `, "warning")));
+      } else {
+         dis(setSnackbar(msg(`Not Deleting User`, "info")));
+         return false;
+      }
    };
 
    return (
@@ -135,14 +161,20 @@ export default React.memo((): JSX.Element => {
                                        );
                                     })}
                                     <TableCell>
-                                       <Tooltip title='Dept Members'>
+                                       <Tooltip title='Edit'>
                                           <IconButton
                                              color='primary'
-                                             onClick={() =>
-                                                handleDetails(row, "1")
-                                             }
+                                             onClick={() => handleEdit(row)}
                                           >
-                                             <PeopleAltIcon />
+                                             <EditIcon />
+                                          </IconButton>
+                                       </Tooltip>
+                                       <Tooltip title='Edit'>
+                                          <IconButton
+                                             color='primary'
+                                             onClick={() => handleDelete(row)}
+                                          >
+                                             <DeleteIcon />
                                           </IconButton>
                                        </Tooltip>
                                     </TableCell>

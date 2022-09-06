@@ -9,13 +9,10 @@ import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import Tooltip from "@mui/material/Tooltip";
 import { setSnackbar } from "../../features/snackbar/snackbarSlice";
 import { buildData, dia, msg } from "../../utilities/gen";
 
 import Loading from "../../components/Loading";
-import { IconButton } from "@mui/material";
-import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
 import Typography from "@mui/material/Typography";
 import { DeptChartType, DeptsArrType, DeptsObj } from "./types";
 import { EmployeesArrType } from "../Employees/types";

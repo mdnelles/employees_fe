@@ -7,6 +7,8 @@ import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { clearDialog } from "../../features/dialog/dialogSlice";
 import EmpDetails from "../../pages/Employees/EmpDetails";
 import EmpEdit from "../../pages/Employees/EmpEdit";
+import ManEdit from "../../pages/Managers/ManEdit";
+import UseEdit from "../../pages/Users/UseEdit";
 
 const Transition = React.forwardRef(function Transition(
    props: TransitionProps & {
@@ -30,9 +32,12 @@ export default React.memo((): JSX.Element => {
       switch (content) {
          case "EmpDetails":
             return <EmpDetails params={params} />;
-
          case "EmpEdit":
             return <EmpEdit params={params} />;
+         case "UseEdit":
+            return <UseEdit params={params} />;
+         case "ManEdit":
+            return <ManEdit params={params} />;
 
          default:
             return <EmpDetails params={params} />;

@@ -1,7 +1,6 @@
 import Box from "@mui/material/Box";
 import React, { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
-import { EmployeesObj, EmployeesType } from "./types";
 import TextField from "@mui/material/TextField";
 import Paper from "@mui/material/Paper";
 import AppBar from "@mui/material/AppBar";
@@ -10,19 +9,18 @@ import Table from "@mui/material/Table";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import TableRow from "@mui/material/TableRow";
-import EditIcon from "@mui/icons-material/Edit";
 import { dia, rand } from "../../utilities/gen";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import CircularProgress from "@mui/material/CircularProgress";
 import Container from "@mui/material/Container";
-import FormControl from "@mui/material/FormControl";
 import { useForm } from "react-hook-form";
-import { setEmployees } from "../../features/employees/employeesSlice";
+import { setUsers } from "../../features/users/usersSlice";
 import { setDialog } from "../../features/dialog/dialogSlice";
+import { UsersState } from "../../features/users/users";
 
-interface EmpEditProps {
+interface UseEditProps {
    params: {
       row: any;
       table: string;
@@ -30,7 +28,7 @@ interface EmpEditProps {
    };
 }
 
-export default function EmpEdit(props: EmpEditProps): JSX.Element {
+export default function UseEdit(props: UseEditProps): JSX.Element {
    const { register, handleSubmit } = useForm();
    const { row, table = "", uid = "" } = props.params;
    const [loading, setLoading] = React.useState(false);
@@ -41,10 +39,8 @@ export default function EmpEdit(props: EmpEditProps): JSX.Element {
    const session: any = useAppSelector(
       (state: { session: any }) => state.session
    );
-   const employees: EmployeesType = useAppSelector(
-      (state: any) => state.employees
-   );
-   const empArr: any = employees.arr;
+   const users: UsersState = useAppSelector((state: any) => state.users);
+   const manArr: any = users.arr;
    const token = session.user.token;
    let nam: string[] = [];
 
@@ -53,9 +49,9 @@ export default function EmpEdit(props: EmpEditProps): JSX.Element {
          setLoading(true);
          console.log(fields);
          dis(
-            setEmployees({
-               ...employees,
-               arr: empArr.map((e: { [x: string]: any }) =>
+            setUsers({
+               ...users,
+               arr: manArr.map((e: { [x: string]: any }) =>
                   e[uid] === row[uid] ? { ...e, ...fields } : e
                ),
             })

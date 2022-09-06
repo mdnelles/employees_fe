@@ -52,25 +52,35 @@ export default function Dashboard(): JSX.Element {
    const fetcher = async (
       obj: any,
       setFunction: ActionCreatorWithPayload<any>,
-      postUrl: string
+      postUrl: string,
+      id: string | boolean
    ) => {
       if (!obj.init && !fetchArr.current.includes(postUrl)) {
          fetchArr.current.push(postUrl);
          const res = await apiPost(postUrl, { token });
-         if (!res.data.err && !obj.init) {
-            dis(setFunction({ arr: res.data.data, init: true }));
+         let arr = res.data.data;
+         if (id) {
+            // if id is passed filter using it
+            const emp_nos = arr.map((o: { emp_no: any }) => o.emp_no);
+            arr = arr.filter(
+               ({ emp_no }: any, index: number) =>
+                  !emp_nos.includes(emp_no, index + 1)
+            );
          }
+
+         if (!res.data.err && !obj.init) dis(setFunction({ arr, init: true }));
+         else console.log("could not load from: " + postUrl);
       }
    };
    {
       setTimeout(() => {
          // delay to allow parent render
-         fetcher(departments, setDepartments, "/dept_list");
-         fetcher(employees, setEmployees, "/emp_list");
-         fetcher(managers, setManagers, "/depman_list");
-         fetcher(salaries, setSalaries, "/salary_list");
-         fetcher(titles, setTitles, "/title_list");
-         fetcher(users, setUsers, "/users_list");
+         fetcher(departments, setDepartments, "/dept_list", "dept_no");
+         fetcher(employees, setEmployees, "/emp_list", "emp_no");
+         fetcher(managers, setManagers, "/depman_list", "emp_no");
+         fetcher(salaries, setSalaries, "/salary_list", false);
+         fetcher(titles, setTitles, "/title_list", false);
+         fetcher(users, setUsers, "/users_list", false);
       }, 100);
    }
    const allInit = (): boolean => {
