@@ -30,13 +30,13 @@ export const msg = (msg: string, severity: string) => {
 export const dia = (
    open: boolean,
    title: string,
-   body: string,
+   content: string,
    params: any
 ) => {
    return {
       open,
       title,
-      body,
+      content,
       params,
    };
 };

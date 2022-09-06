@@ -26,7 +26,10 @@ import { IconButton } from "@mui/material";
 import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import HistoryIcon from "@mui/icons-material/History";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 import Typography from "@mui/material/Typography";
+import { setEmployees } from "../../features/employees/employeesSlice";
 
 interface Column {
    id:
@@ -123,6 +126,36 @@ export default React.memo((): JSX.Element => {
       );
    };
 
+   const handleEdit = (row: EmployeesObj) => {
+      const { first_name, last_name } = row;
+
+      dis(setSnackbar(msg(`Edit ${first_name} ${last_name}`, "info")));
+      dis(
+         setDialog(
+            dia(true, `Edit ${first_name} ${last_name}`, "EmpEdit", {
+               row,
+               table: "Employee",
+               uid: "emp_no",
+            })
+         )
+      );
+   };
+
+   const handleDelete = (row: EmployeesObj) => {
+      if (window.confirm("Are you sure you want to delete this?")) {
+         dis(
+            setEmployees({
+               ...employees,
+               arr: employees.arr.filter((e) => e.emp_no !== row.emp_no),
+            })
+         );
+         dis(setSnackbar(msg(`Delete User ${row.emp_no} `, "warning")));
+      } else {
+         dis(setSnackbar(msg(`Not Deleting User`, "info")));
+         return false;
+      }
+   };
+
    return (
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
          <TableContainer sx={{ minHeight: 540 }}>
@@ -203,6 +236,22 @@ export default React.memo((): JSX.Element => {
                                           }
                                        >
                                           <HistoryIcon />
+                                       </IconButton>
+                                    </Tooltip>
+                                    <Tooltip title='Edit'>
+                                       <IconButton
+                                          color='primary'
+                                          onClick={() => handleEdit(row)}
+                                       >
+                                          <EditIcon />
+                                       </IconButton>
+                                    </Tooltip>
+                                    <Tooltip title='Edit'>
+                                       <IconButton
+                                          color='primary'
+                                          onClick={() => handleDelete(row)}
+                                       >
+                                          <DeleteIcon />
                                        </IconButton>
                                     </Tooltip>
                                  </TableCell>

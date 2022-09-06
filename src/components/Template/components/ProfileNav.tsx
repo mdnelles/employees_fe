@@ -48,17 +48,17 @@ export default React.memo((): JSX.Element => {
    ): void => {
       dis(setSnackbar(msg(`Logging out`, "info")));
       setAnchorPr(event.currentTarget);
-      dis(clearSession());
       dis(clearTodo());
       dis(clearSuggest());
       dis(clearEmployeesTypes());
       dis(clearEmployees());
       dis(clearDepartments());
-      dis(clearSnackbar());
       dis(clearTitles());
       dis(clearSalaries());
       dis(clearManagers());
       dis(clearUsers());
+      dis(clearSnackbar());
+      dis(clearSession());
       setTimeout(() => navigate(`/login`), 1200);
    };
    const handleClickSe = (event: React.MouseEvent<HTMLButtonElement>) => {

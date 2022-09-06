@@ -1,10 +1,10 @@
 export type EmployeesObj = {
-   emp_no?: string;
-   birth_date?: string;
-   first_name?: string;
-   last_name?: string;
-   gender?: string;
-   hire_date?: string;
+   emp_no: string;
+   birth_date: string;
+   first_name: string;
+   last_name: string;
+   gender: string;
+   hire_date: string;
    dept_no: string;
    title: string;
 };

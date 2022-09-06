@@ -9,7 +9,7 @@ import { useAppSelector } from "../../app/hooks";
 import { SessionState } from "../../features/session/session";
 import { apiPost } from "../../utilities/ApiRequest";
 import Loading from "../../components/Loading";
-import { deptType, detailsType, salariesArr } from "./types";
+import { deptType, detailsType, salariesArr } from "../Departments/types";
 import TabSalary from "./TabSalary";
 import TabCharted from "./TabCharted";
 import TabDepts from "./TabDepts";

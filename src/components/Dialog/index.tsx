@@ -6,6 +6,7 @@ import { DialogState } from "../../features/dialog/dialog";
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { clearDialog } from "../../features/dialog/dialogSlice";
 import EmpDetails from "../../pages/Employees/EmpDetails";
+import EmpEdit from "../../pages/Employees/EmpEdit";
 
 const Transition = React.forwardRef(function Transition(
    props: TransitionProps & {
@@ -20,7 +21,7 @@ export default React.memo((): JSX.Element => {
    const dis = useAppDispatch();
    const dialog: DialogState = useAppSelector((state) => state.dialog);
    const { open, content, params } = dialog;
-
+   console.log(dialog);
    const handleClose = () => {
       dis(clearDialog());
    };
@@ -29,6 +30,9 @@ export default React.memo((): JSX.Element => {
       switch (content) {
          case "EmpDetails":
             return <EmpDetails params={params} />;
+
+         case "EmpEdit":
+            return <EmpEdit params={params} />;
 
          default:
             return <EmpDetails params={params} />;

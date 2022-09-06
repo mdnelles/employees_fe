@@ -16,11 +16,15 @@ import { apiPost } from "../utilities/ApiRequest";
 import { setSnackbar } from "../features/snackbar/snackbarSlice";
 
 import { msg } from "../utilities/gen";
+import { useEffect } from "react";
+import { SnackbarState } from "../features/snackbar/snackbar";
+import SnackCube from "../components/Snackbar/SnackCube";
 
 export default function Login() {
    const navigate = useNavigate();
    const dis = useAppDispatch();
    const session: any = useAppSelector((state) => state.session);
+   const snackbar: SnackbarState = useAppSelector((state) => state.snackbar);
    const speed = session.speed;
    const [loading, setLoading] = React.useState(false);
    const [success, setSuccess] = React.useState(false);
@@ -66,6 +70,10 @@ export default function Login() {
       }
    };
 
+   useEffect(() => {
+      console.log("UE");
+   }, [snackbar, session]);
+
    return (
       <Container component='main' maxWidth='lg'>
          <CssBaseline />
@@ -91,7 +99,7 @@ export default function Login() {
             >
                <TextField
                   margin='normal'
-                  defaultValue={"demo@employ.ees"}
+                  defaultValue={"demo@emplo.yees"}
                   required
                   fullWidth
                   id='email'
@@ -108,7 +116,7 @@ export default function Login() {
                   name='password'
                   label='Password'
                   id='password'
-                  defaultValue={"password"}
+                  defaultValue={"f98h34F#$FT"}
                   autoComplete='current-password'
                />
                <Box
@@ -142,6 +150,7 @@ export default function Login() {
                </Box>
             </Box>
          </Box>
+         <SnackCube />
       </Container>
    );
 }

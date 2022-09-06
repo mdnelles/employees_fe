@@ -30,7 +30,7 @@ interface Column {
 
 const columns: readonly Column[] = [
    { id: "dept_no", label: "Dept ID", minWidth: 50 },
-   { id: "dept_name", label: "DOB", minWidth: 70 },
+   { id: "dept_name", label: "Dept Name", minWidth: 70 },
 ];
 
 export default React.memo((): JSX.Element => {
@@ -108,7 +108,6 @@ export default React.memo((): JSX.Element => {
                               {column.label}
                            </TableCell>
                         ))}
-                        <TableCell>Details</TableCell>
                      </TableRow>
                   </TableHead>
                   <TableBody>
@@ -145,18 +144,6 @@ export default React.memo((): JSX.Element => {
                                           </TableCell>
                                        );
                                     })}
-                                    <TableCell>
-                                       <Tooltip title='Dept Members'>
-                                          <IconButton
-                                             color='primary'
-                                             onClick={() =>
-                                                handleDetails(row, "1")
-                                             }
-                                          >
-                                             <PeopleAltIcon />
-                                          </IconButton>
-                                       </Tooltip>
-                                    </TableCell>
                                  </TableRow>
                               );
                            })

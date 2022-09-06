@@ -8,7 +8,7 @@ const initialState: SessionState = {
    loginDisplayLastClicked: 0,
    paused: false,
    toggle: true,
-   darkMode: true,
+   darkMode: false,
    speed: 0.3,
    status: "idle",
    user: {
