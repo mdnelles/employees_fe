@@ -20,5 +20,9 @@ export const darkTheme = createTheme({
 export const lightTheme = createTheme({
    palette: {
       mode: "light",
+      background: {
+         default: "#ccc",
+         paper: "#ddd",
+      },
    },
 });
