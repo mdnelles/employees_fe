@@ -1,4 +1,5 @@
 import * as React from "react";
+import "../App.css";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -14,11 +15,13 @@ import { setSession } from "../features/session/sessionSlice";
 import { isValidEmail, isValidPassword } from "../utilities/validate";
 import { apiPost } from "../utilities/ApiRequest";
 import { setSnackbar } from "../features/snackbar/snackbarSlice";
+import GitHubIcon from "@mui/icons-material/GitHub";
 
 import { msg } from "../utilities/gen";
 import { useEffect } from "react";
 import { SnackbarState } from "../features/snackbar/snackbar";
 import SnackCube from "../components/Snackbar/SnackCube";
+import Paper from "@mui/material/Paper";
 
 export default function Login() {
    const navigate = useNavigate();
@@ -75,82 +78,114 @@ export default function Login() {
    }, [snackbar, session]);
 
    return (
-      <Container component='main' maxWidth='lg'>
-         <CssBaseline />
-         <Box
-            sx={{
-               marginTop: 8,
-               display: "flex",
-               flexDirection: "column",
-               alignItems: "center",
-            }}
-         >
-            <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
-               <LockOutlinedIcon />
-            </Avatar>
-            <Typography component='h1' variant='h5'>
-               Sign in
-            </Typography>
-            <Box
-               component='form'
-               onSubmit={handleSubmit}
-               noValidate
-               sx={{ mt: 1 }}
-            >
-               <TextField
-                  margin='normal'
-                  defaultValue={"demo@emplo.yees"}
-                  required
-                  fullWidth
-                  id='email'
-                  label='Email Address'
-                  name='email'
-                  autoComplete='email'
-                  autoFocus
-               />
-               <TextField
-                  margin='normal'
-                  required
-                  fullWidth
-                  type='password'
-                  name='password'
-                  label='Password'
-                  id='password'
-                  defaultValue={"f98h34F#$FT"}
-                  autoComplete='current-password'
-               />
-               <Box
-                  sx={{
-                     position: "relative",
-                     marginBottom: 2,
-                  }}
-               >
-                  <Button
-                     type='submit'
-                     fullWidth
-                     variant='contained'
-                     sx={{ mt: 3, mb: 2, height: 50 }}
-                     disabled={loading}
-                     onClick={() => handleSubmit}
+      <div className='vertical-center center-outer'>
+         <div className='center-inner'>
+            <Paper>
+               <Container component='main' maxWidth='lg'>
+                  <CssBaseline />
+                  <Box
+                     sx={{
+                        marginTop: 8,
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                     }}
                   >
-                     Sign In
-                  </Button>
-                  {loading && (
-                     <CircularProgress
-                        size={24}
-                        sx={{
-                           position: "absolute",
-                           top: "50%",
-                           left: "50%",
-                           marginTop: "-12px",
-                           marginLeft: "-12px",
-                        }}
-                     />
-                  )}
-               </Box>
-            </Box>
-         </Box>
-         <SnackCube />
-      </Container>
+                     <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
+                        <LockOutlinedIcon />
+                     </Avatar>
+                     <Typography component='h1' variant='h5'>
+                        Sign in
+                     </Typography>
+                     <Box
+                        component='form'
+                        onSubmit={handleSubmit}
+                        noValidate
+                        sx={{ mt: 1 }}
+                     >
+                        <TextField
+                           margin='normal'
+                           defaultValue={"demo@emplo.yees"}
+                           required
+                           fullWidth
+                           id='email'
+                           label='Email Address'
+                           name='email'
+                           autoComplete='email'
+                           autoFocus
+                        />
+                        <TextField
+                           margin='normal'
+                           required
+                           fullWidth
+                           type='password'
+                           name='password'
+                           label='Password'
+                           id='password'
+                           defaultValue={"f98h34F#$FT"}
+                           autoComplete='current-password'
+                        />
+                        <Box
+                           sx={{
+                              position: "relative",
+                              marginBottom: 2,
+                           }}
+                        >
+                           <Button
+                              type='submit'
+                              fullWidth
+                              variant='contained'
+                              sx={{ mt: 3, mb: 2, height: 50 }}
+                              disabled={loading}
+                              onClick={() => handleSubmit}
+                           >
+                              Sign In
+                           </Button>
+                           {loading && (
+                              <CircularProgress
+                                 size={24}
+                                 sx={{
+                                    position: "absolute",
+                                    top: "50%",
+                                    left: "50%",
+                                    marginTop: "-12px",
+                                    marginLeft: "-12px",
+                                 }}
+                              />
+                           )}
+                        </Box>
+                     </Box>
+                  </Box>
+                  <Box>
+                     <div style={{ display: "flex", flexWrap: "wrap" }}>
+                        <div style={{ flex: 1, minWidth: 250, padding: 10 }}>
+                           <Button
+                              variant='outlined'
+                              fullWidth={true}
+                              href='https://github.com/mdnelles/employees_fe'
+                           >
+                              <GitHubIcon sx={{ paddingRight: 1 }} /> Source
+                              Code Client
+                           </Button>
+                        </div>
+
+                        <div style={{ flex: 1, minWidth: 250, padding: 10 }}>
+                           <Button
+                              variant='outlined'
+                              fullWidth={true}
+                              href='https://github.com/mdnelles/employees.neio.server'
+                           >
+                              <GitHubIcon sx={{ paddingRight: 1 }} /> Source
+                              Code Server
+                           </Button>
+                        </div>
+                     </div>
+                  </Box>
+               </Container>
+            </Paper>
+
+            <SnackCube />
+         </div>
+      </div>
    );
 }

@@ -1,0 +1,19 @@
+.vertical-center {
+   margin: 0;
+   position: absolute;
+   top: 300px;
+   -ms-transform: translateY(-50%);
+   transform: translateY(-50%);
+}
+.center-inner {
+   display: table;
+   margin: 0 auto;
+}
+
+.center-outer {
+   width: 100%;
+}
+.center {
+   margin: auto;
+   text-align: center;
+}
