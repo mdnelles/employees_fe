@@ -13,6 +13,7 @@ import { apiPost } from "../utilities/ApiRequest";
 import { setSnackbar } from "../features/snackbar/snackbarSlice";
 import { setTodo } from "../features/todo/todoSlice";
 import Typography from "@mui/material/Typography";
+import { rand } from "../utilities/gen";
 
 const Demo = styled("div")(({ theme }) => ({
    backgroundColor: theme.palette.background.paper,
@@ -58,14 +59,14 @@ export default function Todo(): JSX.Element {
          })
       );
       //title, details, due
-      const resp = await apiPost("/sv-todo/add_entry", {
+      /*const resp = await apiPost("/sv-todo/add_entry", {
          token,
          title,
          details,
          due,
-      });
+      });*/
       let tmp = todo.arr;
-      tmp = [...tmp, { id: resp.data.data.id, title, details, due }];
+      tmp = [...tmp, { id: rand(), title, details, due }];
 
       dispatch(setTodo({ ...todo, arr: tmp }));
       titleSet(" ");
