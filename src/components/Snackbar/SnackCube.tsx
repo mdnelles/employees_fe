@@ -129,8 +129,8 @@ const SnackCube = () => {
          style={{
             zIndex: 10000,
             position: "absolute",
-            left,
-            bottom: 20,
+            left: 20,
+            bottom: 10,
             height,
             width,
          }}
