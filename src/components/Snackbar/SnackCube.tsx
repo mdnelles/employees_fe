@@ -1,23 +1,13 @@
 import { useState, useEffect } from "react";
-import { Cuboid } from "anim-3d-obj";
+import Obj from "anim-3d-obj";
 import { useAppSelector } from "../../app/hooks";
 import Alert from "@mui/material/Alert";
 import { AnimObj } from "../Anim/anim";
 import { SessionState } from "../../features/session/session";
 import { SnackbarState } from "../../features/snackbar/snackbar";
 
-const faceprops = {
-   front: true,
-   back: true,
-   left: false,
-   right: false,
-   top: true,
-   bottom: true,
-};
-
 const height = 50;
 const width = 320;
-const left = 20;
 
 const global: { css: string; body: string } = {
    css: `opacity: .9;
@@ -42,9 +32,9 @@ const SnackCube = () => {
    else if (snackbar.cubeFocus === 3) animName = "fwdx918";
    else if (snackbar.cubeFocus === 4) animName = "fwdx1827";
 
-   const custom: AnimObj = {
-      front: {
-         css: ``,
+   const faces = [
+      {
+         name: "front",
          body: (
             <Alert
                severity={snackbar.custom[1].severity}
@@ -54,8 +44,8 @@ const SnackCube = () => {
             </Alert>
          ),
       },
-      bottom: {
-         css: ``,
+      {
+         name: "bottom",
          body: (
             <Alert
                severity={snackbar.custom[2].severity}
@@ -65,8 +55,8 @@ const SnackCube = () => {
             </Alert>
          ),
       },
-      back: {
-         css: ``,
+      {
+         name: "back",
          body: (
             <div style={{ transform: `rotate(180deg)` }}>
                <Alert
@@ -78,8 +68,8 @@ const SnackCube = () => {
             </div>
          ),
       },
-      top: {
-         css: ``,
+      {
+         name: "top",
          body: (
             <Alert
                severity={snackbar.custom[4].severity}
@@ -89,8 +79,9 @@ const SnackCube = () => {
             </Alert>
          ),
       },
-   };
-   const anim1Specs: object = {
+   ];
+
+   const anim1: object = {
       border: "",
       delay: 0,
       degreesHi: -45, // degrees if spin
@@ -102,7 +93,7 @@ const SnackCube = () => {
       name: animName,
       timing: "ease-out", // linear ease ease-in-out
    };
-   const anim2Specs: object = {
+   const anim2: object = {
       border: "",
       delay: 0,
       degreesHi: -45, // degrees if spin
@@ -122,6 +113,20 @@ const SnackCube = () => {
       }, speed * 5000);
    }, [snackbar]);
 
+   const objProps = {
+      width,
+      height,
+      depth: height,
+      perspectiveOrigin: "50% 50%",
+      perspective: 900,
+      zIndex: 10,
+      faces,
+      anim1,
+      anim2,
+      global,
+      showCenterDiv: false,
+   };
+
    return !display ? (
       <></>
    ) : (
@@ -135,18 +140,7 @@ const SnackCube = () => {
             width,
          }}
       >
-         <Cuboid
-            width={width}
-            height={height}
-            depth={height}
-            perspectiveOrigin='50% 50%'
-            zIndex={10}
-            anim1Specs={anim1Specs}
-            anim2Specs={anim2Specs}
-            faces={faceprops}
-            global={global}
-            custom={custom}
-         />
+         <Obj {...objProps} />
       </div>
    );
 };
