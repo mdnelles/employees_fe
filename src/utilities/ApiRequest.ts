@@ -17,7 +17,7 @@ const processFinally = () => {
 };
 const processError = (err: any) => {
    if (axios.isCancel(err)) {
-      throw new axios.Cancel(err);
+      throw new axios.Cancel(err.message);
    }
 
    return Promise.reject(err);
@@ -74,14 +74,31 @@ export const apiGet = async (path: string, args: object = {}) => {
 };
 
 export const apiPost = async (path: string, args: object = {}) => {
-   return await axios.request({
-      method: "POST",
-      url: API_URL + path,
-      headers: {
-         "Content-Type": "application/json; charset=UTF-8",
-         "Accept": "Token",
-         "Access-Control-Allow-Origin": "*",
-      },
-      data: args,
-   });
+   try {
+      const response = await axios.request({
+         method: "POST",
+         url: API_URL + path,
+         headers: {
+            "Content-Type": "application/json; charset=UTF-8",
+            "Accept": "Token",
+            "Access-Control-Allow-Origin": "*",
+         },
+         data: args,
+      });
+
+      return response.data;
+   } catch (error: any) {
+      const ret = { data: { err: true, message: "", status: 400 } };
+      if (
+         error.request &&
+         error.request.status === "failed" &&
+         error.request.type === "xhr"
+      ) {
+         ret.data.message = error.message;
+         return ret;
+      } else {
+         ret.data.message = error.message;
+         return ret;
+      }
+   }
 };

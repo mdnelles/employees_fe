@@ -1,29 +1,11 @@
 import React from "react";
-import { render } from "@testing-library/react";
-import { Provider } from "react-redux";
-import { store } from "./app/store";
+import { render, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
 import App from "./App";
-import { BrowserRouter } from "react-router-dom";
-import CssBaseline from "@mui/material/CssBaseline";
 
-test("renders learn react link", () => {
-   const { getByText } = render(
-      <Provider store={store}>
-         <App />
-      </Provider>
-   );
-
-   /*
-test("renders learn react link", () => {
-   const { getByText } = render(
-      <Provider store={store}>
-         <BrowserRouter>
-            <CssBaseline />
-            <App />
-         </BrowserRouter>
-      </Provider>
-   );
-*/
-
-   expect(getByText(/learn/i)).toBeInTheDocument();
+// A simple test to check if the component renders without crashing
+test("renders the App component", () => {
+   render(<App />);
+   const linkElement = screen.getByText("Loading..."); // Adjust this based on your loading element
+   expect(linkElement).toBeInTheDocument();
 });

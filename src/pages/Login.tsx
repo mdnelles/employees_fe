@@ -44,7 +44,7 @@ export default function Login() {
       if (isValidEmail(data.get("email")) && isValidPassword(password)) {
          dis(setSnackbar(msg(`Testing Credentials...`, "info")));
          const res = await apiPost("/users_login", { email, password });
-
+         console.log(res);
          setTimeout(() => {
             // allow animation to finish
             if (res.data.err) {
