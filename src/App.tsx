@@ -1,5 +1,6 @@
+import React from "react"; // Import React
 import "./App.css";
-import { Suspense, useMemo, useEffect } from "react";
+import { Suspense, useEffect } from "react"; // Remove useMemo as it's not used
 import { Routes, Route, Navigate } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import { darkTheme, lightTheme } from "./components/themes/Theme";
@@ -19,8 +20,10 @@ import Titles from "./pages/Titles";
 import Users from "./pages/Users";
 import Settings from "./pages/Settings";
 import Dashboard from "./pages/Dashboard";
+// import FallbackComponent from "./components/FallbackComponent";
+// import ErrorBoundary from "./components/ErrorBoundary";
 
-function App() {
+export const App = () => {
    const session: any = useAppSelector((state) => state.session);
 
    useEffect(() => {
@@ -54,6 +57,12 @@ function App() {
          </Suspense>
       </div>
    );
-}
+};
 
 export default App;
+
+// export default (
+//    <ErrorBoundary fallbackComponent={<FallbackComponent />}>
+//       <App />
+//    </ErrorBoundary>
+// );
