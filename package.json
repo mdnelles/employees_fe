@@ -12,7 +12,6 @@
       "@mui/x-data-grid-generator": "^6.16.2",
       "@react-icons/all-files": "^4.1.0",
       "@reduxjs/toolkit": "^1.9.7",
-      "@testing-library/user-event": "^14.5.1",
       "@types/node": "^20.8.6",
       "@types/react": "^18.2.28",
       "@types/react-dom": "^18.2.13",
@@ -41,7 +40,9 @@
    "scripts": {
       "start": "react-scripts start",
       "build": "react-scripts build",
-      "test": "jest --watchAll --verbose --coverage",
+      "test": "cross-env NODE_ENV=test jest __tests__/",
+      "testnot": "jest --watchAll",
+      "testall": "jest --watchAll --verbose --coverage",
       "test:rs": "react-scripts test",
       "eject": "react-scripts eject",
       "lint": "eslint src/**/*.ts src/**/*.tsx"
@@ -65,9 +66,12 @@
       ]
    },
    "devDependencies": {
+      "@babel/preset-react": "^7.22.15",
       "@babel/preset-typescript": "^7.23.2",
+      "@testing-library/dom": "^9.3.3",
       "@testing-library/jest-dom": "^6.1.4",
       "@testing-library/react": "^14.0.0",
+      "@testing-library/user-event": "^14.5.1",
       "@types/draft-js": "^0.11.13",
       "@types/draftjs-to-html": "^0.8.2",
       "@types/html-to-draftjs": "^1.4.1",
@@ -76,10 +80,13 @@
       "@types/styled-components": "^5.1.28",
       "@typescript-eslint/eslint-plugin": "^6.8.0",
       "@typescript-eslint/parser": "^6.8.0",
+      "cross-env": "^7.0.3",
       "eslint": "^8.51.0",
       "eslint-plugin-react": "^7.33.2",
       "jest": "^29.7.0",
       "jest-environment-jsdom": "^29.7.0",
+      "jest-extended": "^4.0.2",
+      "jest-webpack-resolver": "^0.3.0",
       "ts-jest": "^29.1.1",
       "typescript": "^5.2.2"
    }
