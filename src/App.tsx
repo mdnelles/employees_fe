@@ -21,7 +21,7 @@ import Users from "./pages/Users";
 import Settings from "./pages/Settings";
 import Dashboard from "./pages/Dashboard";
 // import FallbackComponent from "./components/FallbackComponent";
-// import ErrorBoundary from "./components/ErrorBoundary";
+import ErrorBoundary from "./components/ErrorBoundary";
 
 export const App = () => {
    const session: any = useAppSelector((state) => state.session);
