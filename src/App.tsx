@@ -27,7 +27,7 @@ export const App = () => {
    const session: any = useAppSelector((state) => state.session);
 
    useEffect(() => {
-      /*toggle */
+      console.log("ok");
    }, [session.darkMode]);
 
    return (
